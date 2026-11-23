@@ -1,0 +1,12 @@
+name = "signal"
+main = "src/worker.ts"
+compatibility_date = "2024-11-01"
+
+[assets]
+binding = "ASSETS"
+directory = "./public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "signal-db"
+database_id = "75e720f1-fcc6-4140-a4cb-43449701f61f"

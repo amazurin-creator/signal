@@ -1,0 +1,150 @@
+{
+  "id": "demo",
+  "created_at": "2024-11-23T00:00:00.000Z",
+  "review_count": 80,
+  "dropped_count": 0,
+  "cluster_count": 6,
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "cost_usd": 0,
+  "latency_ms": 0,
+  "cache_hit": false,
+  "demo": true,
+  "result": {
+    "clusters": [
+      {
+        "title": "App Crashes After Completing Level 12",
+        "type": "bug",
+        "severity": 5,
+        "share": 0.19,
+        "sentiment": "negative",
+        "quotes": [
+          "Game crashes every time I complete level 12. Lost all my progress. Completely unplayable.",
+          "Everything works great UNTIL level 12. Then boom, force close every time.",
+          "Same crash on level 12 everyone else reports. Disappointing from an otherwise great game."
+        ],
+        "ticket": {
+          "title": "[BUG] App force-closes immediately after completing Level 12",
+          "description": "The game crashes every time a player finishes Level 12, discarding all session progress. Multiple reinstalls don't fix it. This is a P0 regression blocking ~19% of the player base from progressing and directly driving 1-star reviews.",
+          "acceptance_criteria": [
+            "Level 12 completion transitions to the Level 13 intro screen without crash on Android 11+ and iOS 16+",
+            "Player XP, coins, and stars earned on Level 12 are persisted across the transition",
+            "Crashlytics crash-free rate for Level 12 completion ≥ 99.5% over 7-day post-deploy window",
+            "Fix verified against the top 5 device models listed in the crash report"
+          ]
+        }
+      },
+      {
+        "title": "30-Minute Energy Refill Timer Breaks Session Flow",
+        "type": "balance",
+        "severity": 4,
+        "share": 0.25,
+        "sentiment": "negative",
+        "quotes": [
+          "5 lives and then a 30-minute wait? This isn't 2015. The energy system ruins an otherwise fun game.",
+          "5 hearts that recharge at 1 per 30 min = 2.5 hours for a full refill. Absolutely not.",
+          "1 life every 30 minutes means I need 2.5 hours to refill from zero. This game doesn't respect my time."
+        ],
+        "ticket": {
+          "title": "[BALANCE] Reduce energy refill timer from 30 min to 10 min per life",
+          "description": "The 30-minute wait per life — 2.5 hours for a full refill — is the single most-cited churn driver across the reviews. Players consistently report quitting the session and switching to a competitor app. Industry benchmark is 10 minutes per life.",
+          "acceptance_criteria": [
+            "Life refill timer reduced to 10 minutes",
+            "Previously purchased energy bundles are unaffected by the balance change",
+            "Timer countdown is visible and accurate in the HUD",
+            "D1 and D7 retention tracked against control cohort; no regression vs baseline"
+          ]
+        }
+      },
+      {
+        "title": "$9.99 Starter Pack Perceived as Poor Value",
+        "type": "monetization",
+        "severity": 3,
+        "share": 0.19,
+        "sentiment": "negative",
+        "quotes": [
+          "The starter pack is a ripoff. 500 gems for $10 won't even get you past one hard level.",
+          "$9.99 for a 'starter pack' that runs out in a day? Hard pass.",
+          "Starter pack is overpriced at $10. Would buy at $2.99."
+        ],
+        "ticket": {
+          "title": "[MONETIZATION] Reprice Starter Pack from $9.99 to $2.99 and audit gem quantity",
+          "description": "Players consistently call the $9.99 starter pack a 'ripoff'. Multiple reviews state they would purchase at $2.99–$3.99. The current pricing converts poorly and generates negative reviews instead of revenue. The persistent session-start popup is an additional irritant.",
+          "acceptance_criteria": [
+            "Starter Pack offered at $2.99 in A/B test for 30% of new installs (first 7 days)",
+            "Gem quantity rebalanced so perceived value is maintained at the new price point",
+            "Persistent session-start popup replaced with a one-time offer shown 48h post-install",
+            "7-day IAP conversion rate and revenue-per-install tracked vs control group"
+          ]
+        }
+      },
+      {
+        "title": "Unskippable Interstitial Ad After Every Level",
+        "type": "monetization",
+        "severity": 5,
+        "share": 0.19,
+        "sentiment": "negative",
+        "quotes": [
+          "An ad after EVERY level. That's not monetization, that's harassment.",
+          "I counted: 8 unskippable ads in a 20-minute session. Uninstalled.",
+          "30-second unskippable ads after every level. The game is literally 50% ads by time."
+        ],
+        "ticket": {
+          "title": "[MONETIZATION] Reduce interstitial ad frequency from every level to every 4 levels",
+          "description": "A 30-second unskippable ad after every single level is the top uninstall trigger mentioned in reviews. Players describe it as 'harassment'. Reducing to every 4 levels maintains ad revenue while restoring session flow. Surface an ad-free subscription option after the second ad seen.",
+          "acceptance_criteria": [
+            "Interstitial ad fires at most once every 4 completed levels",
+            "No interstitial within the first 3 levels of any session (onboarding/re-engagement protection)",
+            "Ad-free subscription option surfaced prominently after the user's second ad in a session",
+            "Session length, ad impressions/session, and D1 retention tracked post-deploy"
+          ]
+        }
+      },
+      {
+        "title": "Players Requesting Guild System and PvP Mode",
+        "type": "feature_request",
+        "severity": 2,
+        "share": 0.13,
+        "sentiment": "positive",
+        "quotes": [
+          "Please add a guild system! I want to play with my friends.",
+          "Would be a 10/10 game with guild wars. The puzzle engine is perfect for PvP.",
+          "Requesting: friends list, guild, weekly tournaments. This game deserves social features."
+        ],
+        "ticket": {
+          "title": "[FEATURE] Add Guild system with async weekly PvP challenge",
+          "description": "Guild and competitive play are the most-requested social features. Reviewers indicate they would increase spend and recruit friends if social features existed. The match-3 format is well-suited to async score-based PvP.",
+          "acceptance_criteria": [
+            "Players can create or join a guild (up to 30 members) via invite code or name search",
+            "Guild roster screen shows member levels and weekly contribution scores",
+            "Weekly Guild Challenge: each member's score on a designated level is summed for a leaderboard",
+            "Top-3 guilds at week end receive a cosmetic reward distributed to all members"
+          ]
+        }
+      },
+      {
+        "title": "Core Gameplay and Visuals Earn Strong Praise",
+        "type": "praise",
+        "severity": 1,
+        "share": 0.06,
+        "sentiment": "positive",
+        "quotes": [
+          "Absolutely love this game. The graphics are stunning and the puzzles are perfectly balanced.",
+          "Best match-3 game I've played in years. Incredibly addictive and visually gorgeous.",
+          "Candy Kingdoms is my go-to stress relief. The level design is creative and satisfying."
+        ],
+        "ticket": {
+          "title": "[INSIGHT] Core loop and visuals are the retention foundation — protect this cohort",
+          "description": "5-star reviewers consistently praise the puzzle balance, animations, and visual design. This cohort is the highest-LTV segment. Prioritise features that extend their engagement; validate any core mechanic changes against this group first.",
+          "acceptance_criteria": [
+            "5-star reviewer cohort identified and tagged in analytics dashboard",
+            "D30 and D60 retention tracked separately for this cohort",
+            "Survey deployed to 5-star cohort before next roadmap cycle to gather feature preferences",
+            "Any proposed change to core match-3 mechanics requires A/B sign-off from this cohort"
+          ]
+        }
+      }
+    ]
+  }
+}

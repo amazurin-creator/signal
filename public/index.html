@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal — Game Review Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">◈</div>
+      <div class="brand-text">
+        <h1>Signal</h1>
+        <span class="tagline">Game Review Intelligence</span>
+      </div>
+    </div>
+    <div class="global-stats" id="global-stats">
+      <div class="stat-pill">
+        <span class="stat-label">Runs</span>
+        <span class="stat-value mono" id="stat-total-runs">—</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Tokens</span>
+        <span class="stat-value mono" id="stat-total-tokens">—</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Spend</span>
+        <span class="stat-value mono accent" id="stat-total-cost">—</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Cache hits</span>
+        <span class="stat-value mono" id="stat-cache-hits">—</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+
+      <!-- API Key Section -->
+      <section class="key-section">
+        <div class="section-header">
+          <span class="section-title">ANTHROPIC KEY</span>
+        </div>
+        <div id="key-form"></div>
+      </section>
+
+      <!-- Input Section -->
+      <section class="input-section">
+        <div class="section-header">
+          <span class="section-title">INPUT</span>
+          <div class="input-actions">
+            <button class="btn-ghost" id="load-sample-btn" title="Load 80 synthetic Candy Kingdoms reviews">Load sample</button>
+            <label class="btn-ghost" title="Upload CSV with 'text' column">
+              Upload CSV
+              <input type="file" id="csv-upload" accept=".csv,.txt" hidden>
+            </label>
+          </div>
+        </div>
+        <textarea
+          id="reviews-input"
+          placeholder="Paste reviews here, one per line…&#10;&#10;Or click 'Load sample' to try with 80 synthetic reviews."
+          spellcheck="false"
+        ></textarea>
+        <div class="review-meta" id="review-meta"></div>
+        <button class="btn-primary" id="analyze-btn">
+          <span class="btn-icon">▶</span>
+          <span class="btn-label">Analyze</span>
+        </button>
+      </section>
+
+      <!-- How it works -->
+      <details class="how-it-works" id="how-it-works">
+        <summary>
+          <span class="summary-icon">◆</span>
+          How it works
+        </summary>
+        <ul class="how-list">
+          <li><strong>BYOK — your key, your cost.</strong> The server holds no API key. Enter your <code>sk-ant-…</code> key once; it stays only in your browser's localStorage. Each request sends it in a custom header; the Worker uses it for that one call and never stores, logs, or echoes it.</li>
+          <li><strong>One LLM call per batch.</strong> All reviews are sent in a single API request — never one call per review. Structured output is enforced with <code>tool_choice</code>, so parsing is deterministic and tokens aren't wasted on free-form prose.</li>
+          <li><strong>Normalize first.</strong> Input is trimmed, deduplicated, truncated to 400 chars/review, and capped at 200 reviews before the prompt is built. This directly reduces prompt token count.</li>
+          <li><strong>Exact cache via SHA-256.</strong> The normalized input is hashed and checked before the key is even read. Identical inputs cost $0 and return instantly with <code>cache_hit: true</code> — no key required.</li>
+          <li><strong>Quote validation in code.</strong> Quotes returned by the model are verified to be verbatim substrings of the input. Any hallucinated quote is dropped server-side without a retry call.</li>
+          <li><strong>Demo mode.</strong> No key? <em>Load sample</em> shows a bundled pre-computed result — same schema as a live run, clearly labelled. Add a key and click again to run it live.</li>
+        </ul>
+      </details>
+
+      <!-- History -->
+      <section class="history-section">
+        <div class="section-header">
+          <span class="section-title">HISTORY</span>
+          <button class="btn-ghost btn-xs" id="refresh-history-btn" title="Refresh history">↺</button>
+        </div>
+        <div id="history-list" class="history-list">
+          <div class="history-empty">No runs yet</div>
+        </div>
+      </section>
+    </aside>
+
+    <main class="results-section" id="results">
+      <div class="empty-state">
+        <div class="empty-mark">◈</div>
+        <p class="empty-title">No analysis yet</p>
+        <p class="empty-sub">Paste reviews or click <strong>Load sample</strong> to get started</p>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

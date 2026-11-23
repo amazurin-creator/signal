@@ -1,0 +1,16 @@
+{
+  "name": "signal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply signal-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply signal-db --remote"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.0.0",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.0.0"
+  }
+}
